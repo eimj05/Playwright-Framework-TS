@@ -14,14 +14,11 @@ test.beforeEach(async ({ page }) => {
   await page.goto("https://www.imdb.com/");
 });
 
-test("Search and Validate Movie", async ({ page }) => {
-  const movieName = "Inception";
-  await mainPage.enterMovieToSearch(movieName);
-  await mainPage.clickSearchButton();
-  expect(page).toHaveTitle("Find - IMDb");
-  expect(await searchResultsPage.getResultTitle()).toBe(
-    'Search "' + movieName.toLowerCase() + '"'
-  );
-  await searchResultsPage.clickOnMovie(movieName);
-  expect(await searchResultsPage.getMovieTitle()).toBe(movieName);
+test("Navigate Top 250 Movies and Select First Movie", async ({ page }) => {
+  await navigationPage.clickMenuButton();
+  await navigationPage.selectOption(MoviesOptions.Top250Movies);
+  const movieName = await searchResultsPage.selectFirstMovie();
+  expect(await searchResultsPage.isMovieTitleVisible(movieName!)).toBe(true);
+  expect(await searchResultsPage.isRatingBoxVisible()).toBe(true);
+  expect(await searchResultsPage.isRelaseYearVisible()).toBe(true);
 });

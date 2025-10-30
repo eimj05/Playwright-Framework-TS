@@ -15,7 +15,7 @@
 
 <ul>
   <li><strong>Run all tests:</strong><br/><code>npx playwright test</code></li>
-  <li><strong>Run a specific test:</strong><br/><code>npx playwright test tests/login.success.spec.ts</code></li>
+  <li><strong>Run a specific test:</strong><br/><code>npx playwright test tests/search.spec.ts</code></li>
   <li><strong>Run in headed mode:</strong><br/><code>npx playwright test --headed</code></li>
   <li><strong>Debug mode:</strong><br/><code>npx playwright test --debug</code></li>
 </ul>
@@ -41,3 +41,9 @@
   <li>Modular Page Object Model</li>
   <li>Supports Chromium, Firefox, and WebKit</li>
 </ul>
+
+<h2>🧰 Useful Commands</h2>
+
+<pre><code>npx playwright show-report
+npx playwright test --project=firefox
+</code></pre>
