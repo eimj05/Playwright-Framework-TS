@@ -25,6 +25,10 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Install Allure CLI
+        run: |
+          npm install -g allure-commandline --save-dev
+          echo "$(npm bin -g)" >> $GITHUB_PATH
       - name: Generate Allure report
         run: npm run allure:generate
       - name: Upload Allure report as artifact
