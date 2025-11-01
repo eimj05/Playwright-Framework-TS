@@ -6,7 +6,9 @@
   "scripts": {
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
-    "test:chrome": "npx playwright test --project=chromium",
+    "test:chrome": "npx playwright test --project=chromium --headed",
+    "test:firefox": "npx playwright test --project=firefox --headed",
+    "test:safari": "npx playwright test --project=webkit -- headed",
     "test:report": "npx playwright show-report",
     "allure:generate": "allure generate allure-results --clean",
     "allure:open": "allure open",

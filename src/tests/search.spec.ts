@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { MainPage } from "../pages/mainPage";
 import { SearchResultsPage } from "../pages/searchResultsPage";
-import { MoviesOptions, NavigationPage } from "../pages/navigationPage";
+import { NavigationPage } from "../pages/navigationPage";
 
 let mainPage: MainPage;
 let searchResultsPage: SearchResultsPage;
@@ -16,12 +16,25 @@ test.beforeEach(async ({ page }) => {
 
 test("Search and Validate Movie", async ({ page }) => {
   const movieName = "Inception";
-  await mainPage.enterMovieToSearch(movieName);
-  await mainPage.clickSearchButton();
-  expect(page).toHaveTitle("Find - IMDb");
-  expect(await searchResultsPage.getResultTitle()).toBe(
-    'Search "' + movieName.toLowerCase() + '"'
-  );
-  await searchResultsPage.clickOnMovie(movieName);
-  expect(await searchResultsPage.getMovieTitle()).toBe(movieName);
+
+  await test.step(`Search for movie: ${movieName}`, async () => {
+    await mainPage.enterMovieToSearch(movieName);
+    await mainPage.clickSearchButton();
+  });
+
+  await test.step("Validate Search Results", async () => {
+    expect(page).toHaveTitle("Find - IMDb");
+    expect(await searchResultsPage.getResultTitle()).toBe(
+      'Search "' + movieName.toLowerCase() + '"'
+    );
+  });
+
+  await test.step(`Click on movie: ${movieName} from search results`, async () => {
+    await searchResultsPage.clickOnMovie(movieName);
+    expect(await searchResultsPage.getMovieTitle()).toBe(movieName);
+  });
+
+  await test.step("Validate Movie Title and Rating Box are visible", async () => {
+    expect(await searchResultsPage.getMovieTitle()).toBe(movieName);
+  });
 });
