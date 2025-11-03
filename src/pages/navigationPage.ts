@@ -7,10 +7,11 @@ export enum MoviesOptions {
 export class NavigationPage {
   readonly page: Page;
   readonly menuButton: Locator;
+  MoviesOptions: any;
 
   constructor(page: Page) {
     this.page = page;
-    this.menuButton = page.locator("#imdbHeader-navDrawerOpen");
+    this.menuButton = page.getByText("Menu");
   }
 
   async clickMenuButton() {

@@ -23,15 +23,18 @@ test("Navigate Top 250 Movies and Select First Movie", async ({ page }) => {
   });
 
   await test.step("Select the first movie on the list", async () => {
-    movieName = await searchResultsPage.selectFirstMovie();
+    movieName =
+      (await searchResultsPage.selectFirstMovie())?.replace("1. ", "") ?? null;
   });
 
   await test.step("Validate Movie Title and Rating Box are visible", async () => {
     await expectWithMessage(async () => {
-      expect(await searchResultsPage.isMovieTitleVisible(movieName!)).toBe(
-        true
-      );
-    }, "Movie title is visible but does not match the selected movie, expected: " + movieName);
+      expect(await searchResultsPage.isMovieTitleVisible()).toBe(true);
+    }, "Movie title is not visible");
+
+    await expectWithMessage(async () => {
+      expect(await searchResultsPage.getMovieTitle()).toBe(movieName!);
+    }, "Movie title is not matching with the selected movie name: " + movieName);
 
     await expectWithMessage(async () => {
       expect(await searchResultsPage.isRatingBoxVisible()).toBe(true);

@@ -33,11 +33,9 @@ export class SearchResultsPage {
     await targetItem.first().click();
   }
 
-  async isMovieTitleVisible(movieName: string) {
+  async isMovieTitleVisible() {
     const isVisible = await this.movieTitle.isVisible();
-    const movieTitle = await this.getMovieTitle();
-    if (isVisible && movieName.includes(movieTitle)) return true;
-    else return false;
+    return isVisible;
   }
 
   async getMovieTitle() {
